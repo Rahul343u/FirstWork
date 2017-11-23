@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+	
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style>
+	#gridContainer {
+   padding-top: 80px;
+}
+
+.options {
+    padding: 50px;
+    margin-top: 10px;
+    background-color: rgb(98, 119, 137);
+	color:#ffffff;
+	display: none;
+}
+
+.caption {
+    font-size: 18px;
+    
+}
+
+.option {
+    margin-top: 10px;
+}
+
+.option > span {
+    margin-right: 10px;
+}
+
+.option > .dx-selectbox {
+    display: inline-block;
+    
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color:#eceff1;
+   color: white;
+   text-align: center;
+   height:30px;
+}
+</style>
+
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.1.0.min.js"></script>
+		
+			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+		
+			<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.1.8/css/dx.common.css" />
+			<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/17.1.8/css/dx.light.css" />
+			<script type="text/javascript" src="https://cdn3.devexpress.com/jslib/17.1.8/js/dx.all.js"></script>
+ </head>
+ <body class="dx-viewport">
+ 
+ <div class="navbar navbar-default navbar-fixed-top right" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">TAFFY<span style="font-size:px;">alpha</span></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+           <li><a href="#about">About</a></li>
+          </ul>
+        </div>
+      </div>
+  </div>
+  
+ 
+     <div class="demo-container">        
+         <div id="gridContainer"></div>
+			<div class="options">
+				<div class="caption">Options</div>
+				<div class="apply-filter option">
+					<span>Apply Filter</span>
+					<div id="useFilterApplyButton"></div>
+				</div>
+				<div class="option">
+					<div id="filterRow"></div>
+				</div>
+				<div class="option">
+					<div id="headerFilter"></div>
+				</div>
+			</div>
+			 <div id="data-grid-demo">
+            <div id="gridContainer"></div>
+        </div>
+        <div class="demo-container">
+        <div id="gridContainer"></div>
+    </div>
+      </div>
+	  
+  <div class="footer" style="color:#37474f;">
+             Tech Mahindra 2016.
+            <a class="grey-text text-darken-4 right" title="Contact Devendra" target="_blank" >Designed and Maintained by Retail IST Team</a>
+            </div>
+
+   
+ <script>
+ 
+ $(function(){
+    function logEvent(eventName) {
+        var logList = $("#events ul"),
+            newItem = $("<li>", { text: eventName });
+
+        logList.prepend(newItem);
+    }
+    
+	
+ $(function(){
+    var dataGrid = $("#gridContainer").dxDataGrid({
+        dataSource: orders,
+		 showColumnLines: true,
+         showRowLines: true,
+         rowAlternationEnabled: true,
+       
+		 allowColumnReordering: true,
+		 allowRowResizing: true,
+        RowAutoWidth: true,
+        RowChooser: {
+            enabled: true
+        },
+		 selection: {
+            mode: "multiple"
+        },
+        "export": {
+            enabled: true,
+		
+            fileName: "orders",
+            allowExportSelectedData: true
+        },
+       
+        filterRow: {
+            visible: true,
+            applyFilter: "auto"
+        },
+		  paging: {
+            enabled: false
+        },
+        editing: {
+            mode: "batch",
+            allowUpdating: true
+        },
+        searchPanel: {
+            visible: true,
+            width: 240,
+            placeholder: "Search..."
+        },
+        headerFilter: {
+            visible: true
+        },
+		 
+        columns: [{
+            dataField: "Path",
+            width: 130,
+            headerFilter: {
+                groupInterval: 10000
+            }
+        }, {
+            dataField: "Test Case Name",
+            alignment: "right",
+            
+        }, {
+            dataField: "Subject",
+            alignment: "right",
+           
+        }, {
+		    dataField: "Step No"
+		
+		}, {
+           
+            dataField: "Action"
+        }, {
+           
+            dataField: "Expected"
+        },
+		 {
+           
+            dataField: "Priority"
+        },
+		 {
+           
+            dataField: "Test Phase"
+        },
+		{
+           
+            dataField: "Application"
+        }],onEditingStart: function(e) {
+            logEvent("EditingStart");
+        },
+        onInitNewRow: function(e) {
+            logEvent("InitNewRow");
+        },
+        onRowInserting: function(e) {
+            logEvent("RowInserting");
+        },
+        onRowInserted: function(e) {
+            logEvent("RowInserted");
+        },
+        onRowUpdating: function(e) {
+            logEvent("RowUpdating");
+        },
+        onRowUpdated: function(e) {
+            logEvent("RowUpdated");
+        },
+        onRowRemoving: function(e) {
+            logEvent("RowRemoving");
+        },
+        onRowRemoved: function(e) {
+            logEvent("RowRemoved");
+        }
+    }).dxDataGrid('instance');
+    
+    var applyFilterTypes = [{
+        key: "auto",
+        name: "Immediately"
+    }, {
+        key: "onClick",
+        name: "On Button Click"
+    }];
+    
+    $("#useFilterApplyButton").dxSelectBox({
+        items: applyFilterTypes,
+        value: applyFilterTypes[0].key,
+        valueExpr: "key",
+        displayExpr: "name",
+        onValueChanged: function(data) {
+            dataGrid.option("filterRow.applyFilter", data.value);
+        }
+    });
+    
+    $("#filterRow").dxCheckBox({
+        text: "Filter Row",
+        value: true,
+        onValueChanged: function(data) {
+            dataGrid.clearFilter();
+            dataGrid.option("filterRow.visible", data.value);
+            $(".apply-filter-option").css("display", data.value ? "block" : "none");
+        }
+    });
+    
+    $("#headerFilter").dxCheckBox({
+        text: "Header Filter",
+        value: true,
+        onValueChanged: function(data) {
+            dataGrid.clearFilter();
+            dataGrid.option("headerFilter.visible", data.value);
+        }
+    });
+    
+   
+});
+ $("#clear").dxButton({
+        text: "Clear",
+        onClick: function() {
+            $("#events ul").empty();
+        }
+    });
+});
+</script>
+
+<script>
+var orders = [{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_001",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_002",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_003",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_004",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_005",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_006",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_007",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_008",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_009",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_010",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_011",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_012",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_013",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_014",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_015",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_016",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_017",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_018",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_019",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_020",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_021",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_022",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_023",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_024",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_025",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_026",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_027",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_028",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_029",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+},
+{
+    "path":"  ",
+    "Test Case Name":"1710_282659_NR_AMEND ORDER_TC_030",
+    "Subject":"Verify for Amend order flow_UV(Pending)+ New WLS_OPUS shall invoke InquireUnifiedServiceEligibleOffers (IUSEO) in PRODUCT_OFFERS mode to retrieve the available product offerings for the customer with wireless as sepNRate product stucture.",
+    "Step No":1,
+    "Terms": "15 Days",
+    "Action": "Login to OPUS",
+    "Expected": "Successfully logged in.",
+    "Priority": "literal.priority.130",
+	"Test Phase":"Integrated Systems Test (IST)",
+	"Application":"OPUS - C:18257"
+}];
+</script>
+ </body>
+ </html>
