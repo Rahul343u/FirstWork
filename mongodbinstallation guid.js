@@ -19,3 +19,8 @@ https://scotch.io/tutorials/setting-up-a-mean-stack-single-page-application
 https://www.youtube.com/redirect?q=https%3A%2F%2Fgithub.com%2Fbradtraversy%2Fmean_mytasklist&redir_token=ippCIoE5wg4WUwe68UTQFXXiU558MTUxMjAxODE1NkAxNTExOTMxNzU2&v=PFP0oXNNveg&event=video_description
 
 https://github.com/bradtraversy/mean_mytasklist.git
+
+
+https://appdividend.com/2017/06/18/node-js-express-tutorial/
+
+dev extream
