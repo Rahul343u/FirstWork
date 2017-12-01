@@ -24,3 +24,5 @@ https://github.com/bradtraversy/mean_mytasklist.git
 https://appdividend.com/2017/06/18/node-js-express-tutorial/
 
 dev extream
+
+https://js.devexpress.com/Demos/WidgetsGallery/Demo/Charts/Overview/jQuery/Light/
