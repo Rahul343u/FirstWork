@@ -29,3 +29,27 @@ https://js.devexpress.com/Demos/WidgetsGallery/Demo/Charts/Overview/jQuery/Light
 
 
 https://docs.mongodb.com/manual/reference/operator/aggregation/concat/#exp._S_concat
+
+
+itemRouter.route('/post').post(function (req, res) 
+{
+	  MongoClient.connect(url, function(err, db) 
+	  {
+		  if (err) throw err;
+		   db.collection("testcases").find({},{}).limit(15).toArray(function(err, itms)
+					{
+						if(err){
+						  console.log(err);
+						}
+						else 
+							 
+							 {
+								 res.render('item', {itms: itms});
+							 }
+						 // console.log(itms);
+					 });
+				
+		  });
+     		  
+	  });
+
