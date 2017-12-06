@@ -94,3 +94,22 @@ db.close();
 
 
 
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  db.collection("testcases").findOne({}, function(err, result) {
+    if (err) throw err;
+ var r =result.collection[0].actionid;
+    console.log(r);
+	db.collection("actions").find({"_id": new ObjectId(r)}).toArray(function(err, itms)
+{
+if(err){
+console.log(err);
+}
+else
+	console.log(r);
+console.log(itms);
+});
+console.log(r);
+    db.close();
+  });
+});
