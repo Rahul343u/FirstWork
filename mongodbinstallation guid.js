@@ -53,3 +53,44 @@ itemRouter.route('/post').post(function (req, res)
      		  
 	  });
 
+
+--==========================================================================================================================
+
+var MongoClient = require('mongodb').MongoClient;
+var mongojs = require('mongojs');
+//var url = "mongodb://localhost:27017/mydb";
+var url = "mongodb://10.13.66.88:27017/automationframework";
+var y;
+var ObjectId = require('mongodb').ObjectID;
+
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  db.collection("testcases").findOne({}, function(err, result) {
+    if (err) throw err;
+ var r ="'" + result.collection[0].actionid + "'";
+    console.log(r);
+	y = r;
+    db.close();
+  });
+});
+
+
+MongoClient.connect(url, function(err, db)
+{
+if (err) throw err;
+db.collection("actions").find({"_id": new ObjectId($y)}).toArray(function(err, itms)
+{
+if(err){
+console.log(err);
+}
+else
+	console.log(y);
+console.log(itms);
+db.close();
+});
+
+});
+
+
+
